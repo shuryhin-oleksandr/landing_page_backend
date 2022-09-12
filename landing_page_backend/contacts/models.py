@@ -12,6 +12,9 @@ class Project(models.Model):
     project_type = models.CharField(max_length=32, choices=ProjectType.choices)
     date_of_completion = models.DateTimeField(blank=True, null=True)
 
+    def __str__(self):
+        return self.project_name
+
 
 class Contact(models.Model):
     name = models.CharField(max_length=255)
@@ -19,3 +22,6 @@ class Contact(models.Model):
     number = models.IntegerField()
     message = models.TextField()
     created = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.name

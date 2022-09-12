@@ -1,7 +1,7 @@
 from django.core.mail import send_mail
-from rest_framework.generics import CreateAPIView
-from contacts.models import Contact
-from contacts.serializers import ContactSerializer
+from rest_framework.generics import CreateAPIView, ListAPIView
+from contacts.models import Contact, Project
+from contacts.serializers import ContactSerializer, PreviousProjectSerializer, OngoingProjectSerializer
 from landing_page_backend.settings import EMAIL_HOST_USER
 
 
@@ -20,3 +20,11 @@ class ContactAPIView(CreateAPIView):
         )
 
 
+class PreviousProjectsView(ListAPIView):
+    queryset = Project.objects.filter(project_type=Project.ProjectType.PREVIOUS)
+    serializer_class = PreviousProjectSerializer
+
+
+class OngoingProjectView(ListAPIView):
+    queryset = Project.objects.filter(project_type=Project.ProjectType.ONGOING)
+    serializer_class = OngoingProjectSerializer
